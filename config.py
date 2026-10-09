@@ -120,6 +120,8 @@ class Settings:
     stars_per_ton: float
     price_bands: tuple[PriceBand, ...]
     other_topic_title: str
+    max_gifts_count: int | None = 25
+
 
     @classmethod
     def load(cls) -> Settings:
@@ -149,7 +151,7 @@ class Settings:
             price_bands=_parse_bands(os.getenv("TOPIC_BANDS", "")),
             other_topic_title=os.getenv("OTHER_TOPIC_TITLE", "📦 Прочее").strip()
             or "📦 Прочее",
+        max_gifts_count=int(os.getenv("MAX_GIFTS_COUNT", "25")),
         )
-
     def is_admin(self, user_id: int) -> bool:
         return user_id in self.admin_ids
